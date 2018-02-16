@@ -9,25 +9,24 @@ import {FormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
-
 import {
     SocialLoginModule,
     AuthServiceConfig,
     GoogleLoginProvider,
     FacebookLoginProvider,
-} from "angular5-social-login";
+} from 'angular5-social-login';
 
 // Configs 
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig(
       [
-        {
-          id: FacebookLoginProvider.PROVIDER_ID,
-          provider: new FacebookLoginProvider("Your-Facebook-app-id")
-        },
+        // {
+        //   id: FacebookLoginProvider.PROVIDER_ID,
+        //   provider: new FacebookLoginProvider("Your-Facebook-app-id")
+        // },
         {
           id: GoogleLoginProvider.PROVIDER_ID,
-          provider: new GoogleLoginProvider("Your-Google-Client-Id")
+          provider: new GoogleLoginProvider("200903196469-ahi3r9cmjl7aces89h7bc5aa50qco662.apps.googleusercontent.com")
         }
       ]
   );
