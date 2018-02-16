@@ -1,0 +1,1 @@
+ng build --prod --base-href="https://indianaorz.github.io/chat/" && angular-cli-ghpages
