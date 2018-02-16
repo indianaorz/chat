@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {trigger,style,transition,animate,keyframes,query,stagger} from '@angular/animations';
 import {DataService} from '../data.service';
+import {
+    AuthService,
+    FacebookLoginProvider,
+    GoogleLoginProvider
+} from 'angular5-social-login';
 
 @Component({
   selector: 'app-home',
@@ -35,7 +40,25 @@ export class HomeComponent implements OnInit {
   goalText: string = "My first life goal"
   goals = [];
 
-  constructor(private _data: DataService) { }
+  constructor(private _data: DataService, private socialAuthService: AuthService) { }
+
+   public socialSignIn(socialPlatform : string) {
+    let socialPlatformProvider;
+    if(socialPlatform == "facebook"){
+      socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
+    }
+    else if(socialPlatform == "google"){
+      socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
+    }
+    
+    this.socialAuthService.signIn(socialPlatformProvider).then(
+      (userData) => {
+        console.log(socialPlatform+" sign in data : " , userData);
+        // Now sign-in with userData
+          
+      }
+    );
+  }
 
   ngOnInit() {
     this._data.goal.subscribe(res => this.goals = res);
