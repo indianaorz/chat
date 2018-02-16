@@ -70,11 +70,3 @@ THE SOFTWARE.
 @angular/core@5.2.4
 MIT
 MIT
-
-angular5-social-login@1.0.9
-MIT
-MIT
-
-@angular/common@5.2.4
-MIT
-MIT
