@@ -29,6 +29,11 @@ import { NgZone, Injectable, Optional } from '@angular/core';
     ])
   ]
 })
+
+
+
+
+
 export class HomeComponent implements OnInit {
 
   itemCount: number;
@@ -56,18 +61,57 @@ export class HomeComponent implements OnInit {
     this._data.changeGoal(this.goals);
   }
 
+  connect() {
+      var socket = new SockJS('/gs-guide-websocket');
+      stompClient = Stomp.over(socket);
+      stompClient.connect({}, function (frame) {
+          setConnected(true);
+          console.log('Connected: ' + frame);
+          stompClient.subscribe('/topic/greetings', function (greeting) {
+              showGreeting(JSON.parse(greeting.body).content);
+          });
+      });
+  }
+
+
+
+//LOGIN STUFF
+  public auth2: any;
+  public googleInit() {
+    gapi.load('auth2', () => {
+      this.auth2 = gapi.auth2.init({
+        client_id: '200903196469-ahi3r9cmjl7aces89h7bc5aa50qco662.apps.googleusercontent.com',
+        scope: 'profile email'
+      });
+      this.attachSignin(document.getElementById('googleBtn'));
+    });
+  }
+  public attachSignin(element) {
+    this.auth2.attachClickHandler(element, {},
+      (googleUser) => {
+
+        let profile = googleUser.getBasicProfile();
+        console.log('Token || ' + googleUser.getAuthResponse().id_token);
+        console.log('ID: ' + profile.getId());
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail());
+        //YOUR CODE HERE
+
+      }, (error) => {
+        alert(JSON.stringify(error, undefined, 2));
+      });
+  }
+
+  ngAfterViewInit(){
+        this.googleInit();
+  }
+
+  //SIGNING OUT
   signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
       console.log('User signed out.');
     });
-  }
-
-  onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();
-    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log('Name: ' + profile.getName());
-    console.log('Image URL: ' + profile.getImageUrl());
-    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
   }
 }
