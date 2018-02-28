@@ -61,18 +61,6 @@ export class HomeComponent implements OnInit {
     this._data.changeGoal(this.goals);
   }
 
-  connect() {
-      var socket = new SockJS('/gs-guide-websocket');
-      stompClient = Stomp.over(socket);
-      stompClient.connect({}, function (frame) {
-          setConnected(true);
-          console.log('Connected: ' + frame);
-          stompClient.subscribe('/topic/greetings', function (greeting) {
-              showGreeting(JSON.parse(greeting.body).content);
-          });
-      });
-  }
-
 
 
 //LOGIN STUFF
