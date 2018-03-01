@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {trigger,style,transition,animate,keyframes,query,stagger} from '@angular/animations';
 import {DataService} from '../data.service';
 import { NgZone, Injectable, Optional } from '@angular/core';
+import {RestService} from '../services/rest.service';
 
 @Component({
   selector: 'app-home',
@@ -40,12 +41,23 @@ export class HomeComponent implements OnInit {
   btnText: string = 'Add an item'
   goalText: string = "My first life goal"
   goals = [];
-  constructor(private _data: DataService) { }
+  colors: any;
+  constructor(private _data: DataService, private _rest:RestService) { }
 
   ngOnInit() {
     this._data.goal.subscribe(res => this.goals = res);
     this.itemCount = this.goals.length;
     this._data.changeGoal(this.goals);
+
+    this.getColors();
+  }
+
+  getColors(){
+         this._rest.getColors().subscribe(
+            data => { this.colors = data},
+            err => console.error(err),
+            () => console.log(this.colors)
+          );
   }
 
   addItem(){

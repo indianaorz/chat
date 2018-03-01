@@ -9,6 +9,8 @@ import {FormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RestService } from './services/rest.service';
 
 
 @NgModule({
@@ -21,9 +23,10 @@ import { AboutComponent } from './about/about.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
-  providers: [DataService],
+  providers: [DataService, RestService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
