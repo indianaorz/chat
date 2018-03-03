@@ -73,14 +73,14 @@ export class HomeComponent implements OnInit {
     this._data.changeGoal(this.goals);
   }
 
-
-
+//Prod
+//client_id: '200903196469-ahi3r9cmjl7aces89h7bc5aa50qco662.apps.googleusercontent.com',
 //LOGIN STUFF
   public auth2: any;
   public googleInit() {
     gapi.load('auth2', () => {
       this.auth2 = gapi.auth2.init({
-        client_id: '200903196469-ahi3r9cmjl7aces89h7bc5aa50qco662.apps.googleusercontent.com',
+        client_id: '200903196469-7vrdqlp4el0ej93qbvdligfsdkd88of8.apps.googleusercontent.com',        
         scope: 'profile email'
       });
       this.attachSignin(document.getElementById('googleBtn'));
